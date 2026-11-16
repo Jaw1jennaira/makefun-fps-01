@@ -246,6 +246,12 @@ function runShot(name) {
       }
       aimAt(foe.bot.position.x, foe.bot.position.y + 1.3, foe.bot.position.z);
       settle(2);
+    } else if (name === 'foundry') {
+      // No defender in sight: frame the furnace mouth instead, so the cover
+      // still shows Foundry's furnace glow, silos and Site A plate.
+      player.state.position.set(0, 0, 6);
+      aimAt(0, 1.6, -6.4);
+      settle(10);
     }
     settle(10);
     paintTwiceThenReady();

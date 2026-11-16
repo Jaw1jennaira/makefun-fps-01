@@ -53,6 +53,7 @@ function siteLetterTexture(letter, color) {
   g.fillText(letter, 128, 136);
   const tex = new THREE.CanvasTexture(c);
   tex.anisotropy = 4;
+  tex.colorSpace = THREE.SRGBColorSpace; // canvas colours are authored in sRGB; without this the renderer lightens them on output
   return tex;
 }
 
@@ -70,6 +71,7 @@ function skyDome(scene, top, horizon) {
   g.fillStyle = grad;
   g.fillRect(0, 0, 4, 256);
   const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace; // see siteLetterTexture: authored sRGB, must stay sRGB
   const dome = new THREE.Mesh(
     new THREE.SphereGeometry(120, 16, 12),
     new THREE.MeshBasicMaterial({ map: tex, side: THREE.BackSide, fog: false }),
@@ -269,8 +271,8 @@ function buildFoundry(scene, colliders, shootables) {
 
   // Night: dim cool hemisphere, no sun. Furnace glow does the work — two
   // orange point lights at the furnace mouth plus the site lamps.
-  scene.add(new THREE.HemisphereLight(0x2a3340, 0x0f0c08, 0.55));
-  const furnaceGlow = new THREE.PointLight(FOUNDRY.furnaceGlow, 60, 26, 1.6);
+  scene.add(new THREE.HemisphereLight(0x2a3340, 0x0f0c08, 0.85));
+  const furnaceGlow = new THREE.PointLight(FOUNDRY.furnaceGlow, 85, 26, 1.6);
   furnaceGlow.position.set(0, 3.2, -9);
   scene.add(furnaceGlow);
   const furnaceGlow2 = new THREE.PointLight(0xff9a3c, 26, 18, 1.7);
@@ -348,7 +350,7 @@ function buildFoundry(scene, colliders, shootables) {
   return {
     name: 'foundry',
     displayName: 'Foundry',
-    fog: { near: 12, far: 44 },
+    fog: { near: 12, far: 48 },
     background: FOUNDRY.canvas,
     sites: {
       A: { letter: 'A', x: -16, z: -12, r: 3.4, color: PALETTE.siteA },

@@ -44,7 +44,7 @@ export const FOUNDRY = {
 // Dusk sky gradient (top -> horizon) for Sector Nine; night gradient for Foundry.
 export const SKY = {
   sectorNine: { top: 0x2c3e55, horizon: 0xc96f2e },
-  foundry: { top: 0x04060a, horizon: 0x1a120a },
+  foundry: { top: 0x04060a, horizon: 0x241708 },
 };
 
 export const CSS = {
